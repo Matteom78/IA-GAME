@@ -16,22 +16,6 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
         }
 
         .container {
@@ -42,9 +26,6 @@
             width: 100%;
             padding: 50px;
             margin: 0 auto;
-            position: relative;
-            z-index: 100;
-            backdrop-filter: blur(10px);
         }
 
         .header {
@@ -57,18 +38,6 @@
             margin-bottom: 15px;
             font-size: 3em;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            animation: fadeInDown 0.8s ease;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .subtitle {
@@ -86,12 +55,6 @@
             font-size: 0.9em;
             margin: 5px;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
         }
 
         .ai-search-section {
@@ -103,16 +66,10 @@
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
         }
 
-        .ai-search-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
         .ai-search-header h3 {
             color: #667eea;
             font-size: 1.3em;
+            margin-bottom: 15px;
         }
 
         .search-input-group {
@@ -127,16 +84,6 @@
             border: 2px solid #667eea;
             border-radius: 12px;
             font-size: 16px;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 100;
-            pointer-events: auto;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #764ba2;
-            box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
         }
 
         .search-btn {
@@ -148,10 +95,6 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 100;
-            pointer-events: auto;
         }
 
         .search-btn:hover:not(:disabled) {
@@ -186,10 +129,6 @@
             line-height: 1.6;
         }
 
-        .search-result-item:last-child {
-            border-bottom: none;
-        }
-
         .input-section {
             margin-bottom: 30px;
         }
@@ -202,18 +141,7 @@
             font-size: 16px;
             resize: vertical;
             min-height: 120px;
-            transition: all 0.3s;
             font-family: inherit;
-            background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
-            position: relative;
-            z-index: 100;
-            pointer-events: auto;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
         }
 
         .style-selector {
@@ -230,29 +158,6 @@
             padding: 20px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            z-index: 100;
-            pointer-events: auto;
-        }
-
-        .style-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .style-card:hover::before {
-            opacity: 1;
         }
 
         .style-card:hover {
@@ -264,22 +169,17 @@
             border-color: #667eea;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            transform: scale(1.05);
         }
 
         .style-card .emoji {
             font-size: 2.5em;
             margin-bottom: 10px;
             display: block;
-            position: relative;
-            z-index: 11;
         }
 
         .style-card .name {
             font-weight: bold;
             font-size: 1.1em;
-            position: relative;
-            z-index: 11;
         }
 
         .options {
@@ -307,17 +207,7 @@
             border-radius: 10px;
             font-size: 15px;
             cursor: pointer;
-            transition: all 0.3s;
             background: white;
-            position: relative;
-            z-index: 100;
-            pointer-events: auto;
-        }
-
-        select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
         }
 
         .button-group {
@@ -334,10 +224,6 @@
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 100;
-            pointer-events: auto;
         }
 
         .generate-btn {
@@ -363,7 +249,6 @@
         }
 
         .clear-btn:hover {
-            background: linear-gradient(135deg, #da190b 0%, #c2185b 100%);
             transform: translateY(-3px);
         }
 
@@ -406,19 +291,6 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
 
         .image-card:hover {
@@ -438,11 +310,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .image-card:hover img {
-            transform: scale(1.1);
         }
 
         .image-loading {
@@ -490,10 +357,6 @@
             cursor: pointer;
             font-size: 15px;
             font-weight: bold;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 100;
-            pointer-events: auto;
         }
 
         .download-btn {
@@ -503,7 +366,6 @@
 
         .download-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
         }
 
         .view-btn {
@@ -513,7 +375,6 @@
 
         .view-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(33, 150, 243, 0.4);
         }
 
         .counter {
@@ -522,7 +383,6 @@
             font-size: 22px;
             color: #667eea;
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .error {
@@ -537,31 +397,6 @@
 
         .error.active {
             display: block;
-            animation: shake 0.5s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .style-selector {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-            
-            .gallery {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -681,7 +516,8 @@ Exemples:
     </div>
 
     <script>
-        // Variables globales
+        console.log('🎨 Initialisation du générateur d\'images IA...');
+        
         const promptInput = document.getElementById('promptInput');
         const generateBtn = document.getElementById('generateBtn');
         const clearBtn = document.getElementById('clearBtn');
@@ -700,23 +536,23 @@ Exemples:
         let imageCount = 0;
         let selectedStyle = 'flux';
 
-        // Initialisation
-        window.addEventListener('DOMContentLoaded', () => {
-            console.log('✅ Application chargée avec succès');
-        });
+        console.log('✅ Éléments chargés');
 
-        // Gestion de la sélection de style
         styleCards.forEach(card => {
-            card.addEventListener('click', () => {
+            card.addEventListener('click', function() {
+                console.log('Style card cliqué');
                 styleCards.forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-                selectedStyle = card.dataset.style;
+                this.classList.add('active');
+                selectedStyle = this.dataset.style;
                 console.log('Style sélectionné:', selectedStyle);
             });
         });
 
-        // Événements de recherche
-        searchBtn.addEventListener('click', performSearch);
+        searchBtn.addEventListener('click', function() {
+            console.log('Bouton recherche cliqué');
+            performSearch();
+        });
+
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -724,7 +560,6 @@ Exemples:
             }
         });
 
-        // Fonction de recherche avec IA
         async function performSearch() {
             const query = searchInput.value.trim();
             
@@ -737,59 +572,48 @@ Exemples:
             searchResults.innerHTML = `
                 <div style="text-align: center; padding: 20px;">
                     <div class="spinner"></div>
-                    <p style="margin-top: 15px;">🔍 Recherche IA en cours sur le web...</p>
-                    <small style="color: #888;">Cela peut prendre quelques secondes...</small>
+                    <p style="margin-top: 15px;">🔍 Recherche IA en cours...</p>
                 </div>
             `;
             searchResults.classList.add('active');
 
             try {
-                console.log('🔍 Recherche pour:', query);
+                console.log('Recherche pour:', query);
                 const enrichedPrompt = await enrichPromptWithSearch(query);
                 
-                if (enrichedPrompt && enrichedPrompt.length > 0) {
-                    promptInput.value = enrichedPrompt;
-                    promptInput.focus();
-                    
-                    searchResults.innerHTML = `
-                        <div class="search-result-item">
-                            <strong style="color: #4CAF50;">✅ Recherche IA terminée avec succès !</strong><br>
-                            <p style="margin: 10px 0;">Votre prompt a été enrichi avec des informations trouvées sur le web.</p>
-                            <small style="color: #888;">💡 Vous pouvez maintenant le modifier ou générer directement l'image.</small>
-                        </div>
-                    `;
-                    
-                    setTimeout(() => {
-                        searchResults.classList.remove('active');
-                    }, 5000);
-                } else {
-                    throw new Error('Prompt vide reçu');
-                }
-                
-            } catch (error) {
-                console.error('❌ Erreur recherche:', error);
-                
-                // Création d'un prompt de secours enrichi
-                const fallbackPrompt = createFallbackPrompt(query);
-                promptInput.value = fallbackPrompt;
+                promptInput.value = enrichedPrompt;
                 
                 searchResults.innerHTML = `
-                    <div class="search-result-item" style="background: #fff3cd; border-left: 4px solid #ff9800;">
-                        <strong style="color: #ff9800;">⚠️ Mode de secours activé</strong><br>
-                        <p style="margin: 10px 0;">La recherche IA n'a pas pu aboutir, mais un prompt enrichi a été créé pour vous.</p>
-                        <small style="color: #666;">Vous pouvez quand même générer une belle image !</small>
+                    <div class="search-result-item">
+                        <strong style="color: #4CAF50;">✅ Recherche IA terminée !</strong><br>
+                        <p style="margin: 10px 0;">Votre prompt a été enrichi.</p>
                     </div>
                 `;
                 
                 setTimeout(() => {
                     searchResults.classList.remove('active');
-                }, 5000);
+                }, 4000);
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                const fallbackPrompt = createFallbackPrompt(query);
+                promptInput.value = fallbackPrompt;
+                
+                searchResults.innerHTML = `
+                    <div class="search-result-item">
+                        <strong style="color: #ff9800;">⚠️ Mode de secours</strong><br>
+                        Un prompt enrichi a été créé pour vous.
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    searchResults.classList.remove('active');
+                }, 4000);
             } finally {
                 searchBtn.disabled = false;
             }
         }
 
-        // Fonction d'enrichissement avec API Claude
         async function enrichPromptWithSearch(query) {
             try {
                 const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -806,91 +630,58 @@ Exemples:
                         }],
                         messages: [{
                             role: "user",
-                            content: `Je veux créer une image de: "${query}"
-
-Recherche des informations détaillées sur le web et crée un prompt descriptif en français pour un générateur d'images IA.
-
-Instructions:
-- Utilise les informations trouvées sur le web
-- Inclus des détails visuels précis (couleurs, formes, textures, lumière)
-- Ajoute des éléments de style artistique
-- Rends le prompt vivant et inspirant
-- Maximum 3-4 phrases
-
-Réponds UNIQUEMENT avec le prompt enrichi, sans introduction ni explication.`
+                            content: `Je veux créer une image de: "${query}". Recherche sur le web et crée un prompt détaillé en français pour un générateur d'images IA. Réponds UNIQUEMENT avec le prompt enrichi, sans introduction.`
                         }]
                     })
                 });
 
-                if (!response.ok) {
-                    throw new Error(`Erreur API: ${response.status}`);
-                }
-
                 const data = await response.json();
-                console.log('📥 Réponse API reçue');
                 
-                // Extraction du texte
                 let enrichedPrompt = data.content
                     .filter(item => item.type === "text")
                     .map(item => item.text)
                     .join(" ")
                     .trim();
 
-                // Nettoyage du prompt
-                enrichedPrompt = enrichedPrompt
-                    .replace(/^["']|["']$/g, '')
-                    .replace(/\n+/g, ' ')
-                    .trim();
-
                 if (enrichedPrompt.length < 20) {
-                    console.log('⚠️ Prompt trop court, utilisation du fallback');
                     return createFallbackPrompt(query);
                 }
 
-                console.log('✅ Prompt enrichi créé:', enrichedPrompt.substring(0, 100) + '...');
                 return enrichedPrompt;
 
             } catch (error) {
-                console.error('❌ Erreur API Claude:', error);
+                console.error('Erreur API:', error);
                 return createFallbackPrompt(query);
             }
         }
 
-        // Fonction de création de prompt de secours
         function createFallbackPrompt(query) {
             const enrichments = {
-                'chat': 'un magnifique chat aux yeux expressifs et brillants, fourrure douce et détaillée, éclairage doux et chaleureux, composition artistique professionnelle',
-                'chien': 'un chien adorable et expressif, pelage détaillé et réaliste, regard attendrissant, lumière naturelle douce, haute qualité photographique',
-                'dragon': 'un dragon majestueux avec des écailles brillantes et iridescentes, ailes déployées impressionnantes, flammes mystiques éthérées, atmosphère épique et fantastique',
-                'tour eiffel': 'la Tour Eiffel emblématique à Paris, architecture en fer forgé détaillée, perspective dramatique, ciel coloré au coucher du soleil, éclairage cinématographique',
-                'voiture': 'une voiture de sport luxueuse et moderne, carrosserie brillante et réfléchissante, détails chromés précis, éclairage dynamique professionnel, composition automobile premium',
-                'paysage': 'un paysage naturel époustouflant, lumière cinématographique dorée, détails naturels riches et variés, profondeur atmosphérique, composition majestueuse',
-                'ville': 'une métropole futuriste impressionnante, gratte-ciels illuminés spectaculaires, architecture moderne innovante, ambiance cyberpunk nocturne, néons colorés',
-                'nature': 'une scène naturelle luxuriante et vivante, végétation détaillée et variée, éclairage naturel parfait, atmosphère paisible, couleurs vibrantes',
-                'espace': 'un panorama spatial majestueux avec des étoiles scintillantes, nébuleuses colorées spectaculaires, profondeur cosmique infinie, atmosphère mystérieuse',
-                'océan': 'un océan majestueux et puissant, vagues réalistes et dynamiques, reflets lumineux sur l'eau, profondeur aquatique mystérieuse, ambiance maritime',
-                'montagne': 'des montagnes imposantes et majestueuses, sommets enneigés brillants, rochers détaillés et texturés, atmosphère alpine pure, lumière naturelle spectaculaire',
-                'forêt': 'une forêt luxuriante et mystérieuse, arbres imposants, lumière filtrant à travers les feuilles, atmosphère féerique, détails botaniques riches',
-                'plage': 'une plage paradisiaque idyllique, sable fin et doré, eau turquoise cristalline, palmiers, lumière ensoleillée dorée, ambiance tropicale',
-                'fleur': 'une fleur magnifique et délicate, pétales détaillés avec textures subtiles, couleurs vibrantes et saturées, éclairage macro artistique, arrière-plan flou esthétique',
-                'robot': 'un robot futuriste avancé, design mécanique complexe et détaillé, finitions métalliques brillantes, éclairage néon ambiant, style science-fiction premium',
-                'château': 'un château médiéval imposant et majestueux, architecture gothique détaillée, tours et tourelles, atmosphère historique, éclairage dramatique crépusculaire'
+                'chat': 'un magnifique chat aux yeux expressifs, fourrure détaillée, éclairage doux et chaleureux',
+                'dragon': 'un dragon majestueux avec des écailles brillantes, ailes déployées, flammes mystiques',
+                'tour eiffel': 'la Tour Eiffel à Paris, architecture détaillée, ciel coloré au coucher du soleil',
+                'voiture': 'une voiture de sport luxueuse, carrosserie brillante, éclairage dynamique professionnel',
+                'paysage': 'un paysage naturel époustouflant, lumière cinématographique, détails naturels riches'
             };
 
-            // Chercher une correspondance
             for (const [key, value] of Object.entries(enrichments)) {
                 if (query.toLowerCase().includes(key)) {
                     return value;
                 }
             }
 
-            // Prompt générique enrichi
-            return `${query}, composition artistique professionnelle, détails précis et réalistes, éclairage cinématographique dramatique, couleurs vibrantes et saturées, haute qualité 8K, rendu photoréaliste`;
+            return `${query}, haute qualité, détails précis, éclairage professionnel, composition artistique`;
         }
 
-        // Événements de génération
-        generateBtn.addEventListener('click', generateImage);
-        clearBtn.addEventListener('click', clearGallery);
+        generateBtn.addEventListener('click', function() {
+            console.log('Bouton générer cliqué');
+            generateImage();
+        });
+
+        clearBtn.addEventListener('click', function() {
+            console.log('Bouton effacer cliqué');
+            clearGallery();
+        });
 
         promptInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -899,17 +690,15 @@ Réponds UNIQUEMENT avec le prompt enrichi, sans introduction ni explication.`
             }
         });
 
-        // Fonction de génération d'image
         async function generateImage() {
             const prompt = promptInput.value.trim();
             
             if (!prompt) {
-                showError('⚠️ Merci de décrire l\'image que tu veux créer !');
-                promptInput.focus();
+                showError('⚠️ Merci de décrire l\'image !');
                 return;
             }
 
-            console.log('🎨 Génération d\'image pour:', prompt.substring(0, 50) + '...');
+            console.log('Génération pour:', prompt);
             
             hideError();
             loading.classList.add('active');
@@ -922,36 +711,28 @@ Réponds UNIQUEMENT avec le prompt enrichi, sans introduction ni explication.`
                 
                 const encodedPrompt = encodeURIComponent(prompt);
                 
-                let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&model=${selectedStyle}&nologo=true&enhance=true`;
+                let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&model=${selectedStyle}&nologo=true&enhance=true&timestamp=${Date.now()}`;
                 
                 if (seed) {
                     imageUrl += `&seed=${seed}`;
                 }
                 
-                // Ajouter timestamp pour éviter le cache
-                imageUrl += `&timestamp=${Date.now()}`;
-                
-                console.log('🔗 URL générée');
-                
                 addImageToGallery(imageUrl, prompt, selectedStyle);
                 imageCount++;
                 updateCounter();
                 
-                // Effacer le prompt après génération
                 promptInput.value = '';
-                
-                console.log('✅ Image ajoutée à la galerie');
+                console.log('✅ Image générée');
 
             } catch (error) {
-                console.error('❌ Erreur génération:', error);
-                showError('😢 Oups ! Une erreur est survenue. Réessaie dans quelques instants !');
+                console.error('Erreur:', error);
+                showError('😢 Oups ! Une erreur est survenue.');
             } finally {
                 loading.classList.remove('active');
                 generateBtn.disabled = false;
             }
         }
 
-        // Fonction d'ajout à la galerie
         function addImageToGallery(imageUrl, prompt, style) {
             const styleNames = {
                 'flux': 'Standard',
@@ -969,13 +750,12 @@ Réponds UNIQUEMENT avec le prompt enrichi, sans introduction ni explication.`
                 <div class="image-wrapper">
                     <div class="image-loading">
                         <div class="spinner"></div>
-                        <p style="color: #667eea; margin-top: 10px; font-size: 14px;">Chargement...</p>
                     </div>
                     <img data-src="${imageUrl}" alt="${prompt}" style="display: none;">
                 </div>
                 <div class="image-info">
                     <div class="image-style-tag">${styleNames[style] || style}</div>
-                    <div class="image-prompt" title="${prompt}">${prompt}</div>
+                    <div class="image-prompt">${prompt}</div>
                     <div class="image-actions">
                         <button class="action-btn download-btn">⬇️ Télécharger</button>
                         <button class="action-btn view-btn">👁️ Voir</button>
@@ -988,102 +768,77 @@ Réponds UNIQUEMENT avec le prompt enrichi, sans introduction ni explication.`
             const downloadBtn = imageCard.querySelector('.download-btn');
             const viewBtn = imageCard.querySelector('.view-btn');
             
-            // Gestion du chargement de l'image
             img.onload = () => {
-                console.log('✅ Image chargée avec succès');
                 loadingDiv.style.display = 'none';
                 img.style.display = 'block';
             };
             
             img.onerror = () => {
-                console.error('❌ Erreur de chargement d\'image');
-                loadingDiv.innerHTML = '<p style="color: #f44336; font-size: 14px;">❌ Erreur de chargement</p>';
+                loadingDiv.innerHTML = '<p style="color: #f44336;">❌ Erreur</p>';
             };
             
-            // Charger l'image
             setTimeout(() => {
                 img.src = img.dataset.src;
             }, 100);
             
-            // Événements des boutons
             downloadBtn.addEventListener('click', () => downloadImage(imageUrl, prompt));
             viewBtn.addEventListener('click', () => window.open(imageUrl, '_blank'));
             
-            // Ajouter au début de la galerie
             gallery.insertBefore(imageCard, gallery.firstChild);
         }
 
-        // Fonction de téléchargement
         async function downloadImage(url, prompt) {
             try {
-                console.log('📥 Téléchargement en cours...');
-                
                 const response = await fetch(url);
-                if (!response.ok) throw new Error('Erreur de téléchargement');
-                
                 const blob = await response.blob();
                 const blobUrl = URL.createObjectURL(blob);
                 
                 const a = document.createElement('a');
                 a.href = blobUrl;
-                a.download = `image_ia_${prompt.substring(0, 30).replace(/[^a-z0-9]/gi, '_')}_${Date.now()}.png`;
+                a.download = `image_${Date.now()}.png`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(blobUrl);
                 
-                console.log('✅ Téléchargement réussi');
-                
             } catch (error) {
-                console.error('❌ Erreur téléchargement:', error);
-                showError('❌ Erreur lors du téléchargement. Essaie avec le bouton "Voir" puis clique droit > Enregistrer l\'image.');
+                console.error('Erreur téléchargement:', error);
+                showError('❌ Erreur de téléchargement.');
             }
         }
 
-        // Fonction d'effacement de la galerie
         function clearGallery() {
             if (imageCount === 0) {
                 showError('ℹ️ La galerie est déjà vide !');
                 return;
             }
             
-            if (confirm(`🗑️ Es-tu sûr de vouloir effacer toutes les ${imageCount} images ?`)) {
+            if (confirm(`Effacer les ${imageCount} images ?`)) {
                 gallery.innerHTML = '';
                 imageCount = 0;
                 updateCounter();
-                console.log('🗑️ Galerie effacée');
-                showError('✅ Galerie effacée avec succès !');
-                setTimeout(hideError, 3000);
             }
         }
 
-        // Fonction de mise à jour du compteur
         function updateCounter() {
             if (imageCount === 0) {
                 counter.textContent = 'Aucune image générée';
-            } else if (imageCount === 1) {
-                counter.textContent = '1 image générée';
             } else {
-                counter.textContent = `${imageCount} images générées`;
+                counter.textContent = `${imageCount} image${imageCount > 1 ? 's' : ''} générée${imageCount > 1 ? 's' : ''}`;
             }
         }
 
-        // Fonction d'affichage d'erreur
         function showError(message) {
             errorDiv.textContent = message;
             errorDiv.classList.add('active');
             setTimeout(() => hideError(), 5000);
         }
 
-        // Fonction de masquage d'erreur
         function hideError() {
             errorDiv.classList.remove('active');
         }
 
-        // Message de bienvenue dans la console
-        console.log('%c🎨 Générateur d\'Images IA', 'color: #667eea; font-size: 24px; font-weight: bold;');
-        console.log('%c✨ Application 100% fonctionnelle avec recherche IA intégrée', 'color: #4CAF50; font-size: 14px;');
-        console.log('%cPar Claude - Anthropic', 'color: #666; font-size: 12px;');
+        console.log('✅ Application prête !');
     </script>
 </body>
 </html>
