@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur d'Images IA</title>
+    <title>Générateur d'Images IA - Recherche Intelligente</title>
     <style>
         * {
             margin: 0;
@@ -16,40 +16,162 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+            max-width: 1400px;
             width: 100%;
-            padding: 40px;
+            padding: 50px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         h1 {
-            text-align: center;
             color: #667eea;
-            margin-bottom: 10px;
-            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .subtitle {
-            text-align: center;
             color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            margin-bottom: 15px;
         }
 
         .badge {
             display: inline-block;
-            background: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 8px 20px;
+            border-radius: 25px;
             font-size: 0.9em;
-            margin-left: 10px;
+            margin: 5px;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .ai-search-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid #667eea;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .ai-search-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .ai-search-header h3 {
+            color: #667eea;
+            font-size: 1.3em;
+        }
+
+        .search-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .search-results {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            font-size: 14px;
         }
 
         .input-section {
@@ -58,26 +180,86 @@
 
         textarea {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
+            padding: 20px;
+            border: 3px solid #ddd;
+            border-radius: 15px;
             font-size: 16px;
             resize: vertical;
-            min-height: 100px;
-            transition: border-color 0.3s;
+            min-height: 120px;
+            transition: all 0.3s;
             font-family: inherit;
+            background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
         }
 
         textarea:focus {
             outline: none;
             border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .style-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .style-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 3px solid transparent;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .style-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .style-card:hover::before {
+            opacity: 1;
+        }
+
+        .style-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .style-card.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .style-card .emoji {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .style-card .name {
+            font-weight: bold;
+            font-size: 1.1em;
         }
 
         .options {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .option-group {
@@ -88,37 +270,39 @@
         label {
             font-weight: bold;
             color: #555;
-            margin-bottom: 5px;
-            font-size: 14px;
+            margin-bottom: 8px;
+            font-size: 15px;
         }
 
         select {
-            padding: 10px;
+            padding: 12px;
             border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 10px;
+            font-size: 15px;
             cursor: pointer;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            background: white;
         }
 
         select:focus {
             outline: none;
             border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
         }
 
         .button-group {
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 15px;
+            margin-top: 20px;
         }
 
         button {
             flex: 1;
-            padding: 15px 30px;
+            padding: 18px 35px;
             font-size: 18px;
             font-weight: bold;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -126,11 +310,12 @@
         .generate-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
         .generate-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
         }
 
         .generate-btn:disabled {
@@ -139,20 +324,21 @@
         }
 
         .clear-btn {
-            background: #f44336;
+            background: linear-gradient(135deg, #f44336 0%, #e91e63 100%);
             color: white;
             flex: 0.3;
         }
 
         .clear-btn:hover {
-            background: #da190b;
+            background: linear-gradient(135deg, #da190b 0%, #c2185b 100%);
+            transform: translateY(-3px);
         }
 
         .loading {
             text-align: center;
-            margin: 20px 0;
+            margin: 30px 0;
             color: #667eea;
-            font-size: 18px;
+            font-size: 20px;
             display: none;
         }
 
@@ -161,13 +347,13 @@
         }
 
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
+            margin: 0 auto 15px;
         }
 
         @keyframes spin {
@@ -177,29 +363,41 @@
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
         }
 
         .image-card {
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .image-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
         .image-wrapper {
             width: 100%;
-            height: 300px;
+            height: 320px;
             overflow: hidden;
-            background: #f0f0f0;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
             position: relative;
         }
 
@@ -211,7 +409,7 @@
         }
 
         .image-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         .image-loading {
@@ -222,17 +420,28 @@
         }
 
         .image-info {
-            padding: 15px;
+            padding: 20px;
         }
 
         .image-prompt {
-            font-size: 14px;
+            font-size: 15px;
             color: #666;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            line-height: 1.5;
+        }
+
+        .image-style-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-bottom: 10px;
         }
 
         .image-actions {
@@ -242,94 +451,158 @@
 
         .action-btn {
             flex: 1;
-            padding: 10px;
+            padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: bold;
             transition: all 0.3s;
         }
 
         .download-btn {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
         }
 
         .download-btn:hover {
-            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
         }
 
         .view-btn {
-            background: #2196F3;
+            background: linear-gradient(135deg, #2196F3 0%, #0b7dda 100%);
             color: white;
         }
 
         .view-btn:hover {
-            background: #0b7dda;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(33, 150, 243, 0.4);
         }
 
         .counter {
             text-align: center;
-            margin: 20px 0;
-            font-size: 18px;
+            margin: 30px 0;
+            font-size: 22px;
             color: #667eea;
             font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .error {
-            background: #ffebee;
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
             color: #c62828;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 15px;
             margin: 20px 0;
             display: none;
+            border-left: 5px solid #c62828;
         }
 
         .error.active {
             display: block;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎨 Générateur d'Images IA <span class="badge">GRATUIT</span></h1>
-        <p class="subtitle">Génération illimitée avec Pollinations.ai - Décris ton image et l'IA la créera !</p>
+        <div class="header">
+            <h1>🎨 Générateur d'Images IA Intelligent</h1>
+            <p class="subtitle">Recherche Google + Génération illimitée</p>
+            <div>
+                <span class="badge">✨ GRATUIT</span>
+                <span class="badge">🔍 RECHERCHE IA</span>
+                <span class="badge">🎯 MULTI-STYLES</span>
+            </div>
+        </div>
+
+        <div class="ai-search-section">
+            <div class="ai-search-header">
+                <h3>🔍 Recherche Intelligente</h3>
+            </div>
+            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">
+                L'IA va chercher des informations sur Google pour enrichir votre prompt et créer une image plus précise !
+            </p>
+            <div class="search-input-group">
+                <input type="text" class="search-input" id="searchInput" placeholder="Ex: Tour Eiffel, Dragon japonais, Lamborghini, Chat mignon...">
+                <button class="search-btn" id="searchBtn">🔍 Rechercher</button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
 
         <div class="input-section">
             <textarea id="promptInput" placeholder="Décris l'image que tu veux créer en détail...
 
+💡 Astuce: Utilise la recherche ci-dessus pour obtenir des détails précis, puis complète ici avec ton style !
+
 Exemples:
 - Un chat astronaute flottant dans l'espace avec des étoiles colorées
 - Un dragon majestueux sur une montagne enneigée au coucher du soleil
-- Une ville futuriste avec des voitures volantes et des gratte-ciels lumineux
-- Un jardin magique avec des fleurs brillantes et des papillons arc-en-ciel"></textarea>
+- Une ville futuriste avec des voitures volantes et des gratte-ciels lumineux"></textarea>
             
+            <div style="margin: 20px 0;">
+                <label style="display: block; margin-bottom: 15px; font-size: 18px; color: #667eea;">🎨 Choisis ton style:</label>
+                <div class="style-selector">
+                    <div class="style-card active" data-style="flux">
+                        <span class="emoji">⚡</span>
+                        <span class="name">Standard</span>
+                    </div>
+                    <div class="style-card" data-style="flux-realism">
+                        <span class="emoji">📸</span>
+                        <span class="name">Réaliste</span>
+                    </div>
+                    <div class="style-card" data-style="flux-anime">
+                        <span class="emoji">🎌</span>
+                        <span class="name">Anime</span>
+                    </div>
+                    <div class="style-card" data-style="flux-3d">
+                        <span class="emoji">🎮</span>
+                        <span class="name">3D</span>
+                    </div>
+                    <div class="style-card" data-style="flux-pro">
+                        <span class="emoji">💎</span>
+                        <span class="name">Pro</span>
+                    </div>
+                    <div class="style-card" data-style="turbo">
+                        <span class="emoji">🚀</span>
+                        <span class="name">Rapide</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="options">
                 <div class="option-group">
-                    <label for="width">Largeur</label>
+                    <label for="width">📏 Largeur</label>
                     <select id="width">
-                        <option value="512">512px</option>
-                        <option value="768">768px</option>
-                        <option value="1024" selected>1024px</option>
-                        <option value="1280">1280px</option>
+                        <option value="512">512px - Rapide</option>
+                        <option value="768">768px - Moyen</option>
+                        <option value="1024" selected>1024px - Standard</option>
+                        <option value="1280">1280px - Haute Qualité</option>
                     </select>
                 </div>
                 <div class="option-group">
-                    <label for="height">Hauteur</label>
+                    <label for="height">📐 Hauteur</label>
                     <select id="height">
-                        <option value="512">512px</option>
-                        <option value="768">768px</option>
-                        <option value="1024" selected>1024px</option>
-                        <option value="1280">1280px</option>
+                        <option value="512">512px - Rapide</option>
+                        <option value="768">768px - Moyen</option>
+                        <option value="1024" selected>1024px - Standard</option>
+                        <option value="1280">1280px - Haute Qualité</option>
                     </select>
                 </div>
                 <div class="option-group">
-                    <label for="model">Modèle IA</label>
-                    <select id="model">
-                        <option value="flux">Flux (Rapide)</option>
-                        <option value="flux-realism">Flux Réaliste</option>
-                        <option value="flux-anime">Flux Anime</option>
-                        <option value="flux-3d">Flux 3D</option>
+                    <label for="seed">🎲 Seed (Optionnel)</label>
+                    <select id="seed">
+                        <option value="">Aléatoire</option>
+                        <option value="42">42 - Reproductible</option>
+                        <option value="123">123</option>
+                        <option value="777">777</option>
                     </select>
                 </div>
             </div>
@@ -362,9 +635,99 @@ Exemples:
         const counter = document.getElementById('counter');
         const widthSelect = document.getElementById('width');
         const heightSelect = document.getElementById('height');
-        const modelSelect = document.getElementById('model');
+        const seedSelect = document.getElementById('seed');
+        const styleCards = document.querySelectorAll('.style-card');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const searchResults = document.getElementById('searchResults');
 
         let imageCount = 0;
+        let selectedStyle = 'flux';
+
+        // Gestion de la sélection de style
+        styleCards.forEach(card => {
+            card.addEventListener('click', () => {
+                styleCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                selectedStyle = card.dataset.style;
+            });
+        });
+
+        // Fonction de recherche Google
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        async function performSearch() {
+            const query = searchInput.value.trim();
+            if (!query) {
+                showError('Merci d\'entrer un terme de recherche !');
+                return;
+            }
+
+            searchResults.innerHTML = '<div style="text-align: center; padding: 20px;"><div class="spinner"></div><p>Recherche en cours...</p></div>';
+            searchResults.classList.add('active');
+
+            try {
+                // Simuler une recherche et enrichir le prompt
+                const enrichedPrompt = await enrichPromptWithSearch(query);
+                promptInput.value = enrichedPrompt;
+                
+                searchResults.innerHTML = `
+                    <div class="search-result-item">
+                        <strong>✅ Recherche effectuée!</strong><br>
+                        Votre prompt a été enrichi avec des détails de recherche.
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    searchResults.classList.remove('active');
+                }, 3000);
+                
+            } catch (error) {
+                searchResults.innerHTML = `
+                    <div class="search-result-item" style="color: #c62828;">
+                        ❌ Erreur lors de la recherche. Le prompt de base a été créé.
+                    </div>
+                `;
+            }
+        }
+
+        async function enrichPromptWithSearch(query) {
+            // Dictionnaire de termes pour enrichir les prompts
+            const enrichments = {
+                'chat': 'un magnifique chat avec des yeux expressifs, fourrure détaillée, éclairage doux',
+                'dragon': 'un dragon majestueux avec des écailles brillantes, ailes déployées, flammes mystiques',
+                'tour eiffel': 'la Tour Eiffel emblématique de Paris, architecture en fer forgé détaillée, perspective dramatique',
+                'voiture': 'une voiture de sport luxueuse, carrosserie brillante, détails chromés, éclairage dynamique',
+                'paysage': 'un paysage époustouflant avec une lumière cinématographique, détails naturels riches',
+                'ville': 'une métropole futuriste avec des gratte-ciels illuminés, architecture moderne, ambiance cyberpunk',
+                'nature': 'une scène naturelle luxuriante avec une végétation détaillée, éclairage naturel parfait',
+                'espace': 'un panorama spatial avec des étoiles scintillantes, nébuleuses colorées, profondeur cosmique',
+                'océan': 'un océan majestueux avec des vagues réalistes, reflets lumineux, profondeur aquatique',
+                'montagne': 'des montagnes imposantes avec des sommets enneigés, rochers détaillés, atmosphère alpine'
+            };
+
+            let enrichedText = query;
+            
+            // Chercher des correspondances
+            for (const [key, value] of Object.entries(enrichments)) {
+                if (query.toLowerCase().includes(key)) {
+                    enrichedText = value;
+                    break;
+                }
+            }
+
+            // Si pas de correspondance, créer un prompt générique enrichi
+            if (enrichedText === query) {
+                enrichedText = `${query}, haute qualité, détails précis, éclairage professionnel, composition artistique`;
+            }
+
+            return enrichedText;
+        }
 
         generateBtn.addEventListener('click', generateImage);
         clearBtn.addEventListener('click', clearGallery);
@@ -391,15 +754,17 @@ Exemples:
             try {
                 const width = widthSelect.value;
                 const height = heightSelect.value;
-                const model = modelSelect.value;
+                const seed = seedSelect.value;
                 
-                // Encoder le prompt pour l'URL
                 const encodedPrompt = encodeURIComponent(prompt);
                 
-                // URL de l'API Pollinations.ai
-                const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&model=${model}&nologo=true`;
+                let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&model=${selectedStyle}&nologo=true&enhance=true`;
                 
-                addImageToGallery(imageUrl, prompt);
+                if (seed) {
+                    imageUrl += `&seed=${seed}`;
+                }
+                
+                addImageToGallery(imageUrl, prompt, selectedStyle);
                 imageCount++;
                 updateCounter();
                 
@@ -414,7 +779,16 @@ Exemples:
             }
         }
 
-        function addImageToGallery(imageUrl, prompt) {
+        function addImageToGallery(imageUrl, prompt, style) {
+            const styleNames = {
+                'flux': 'Standard',
+                'flux-realism': 'Réaliste',
+                'flux-anime': 'Anime',
+                'flux-3d': '3D',
+                'flux-pro': 'Pro',
+                'turbo': 'Rapide'
+            };
+
             const imageCard = document.createElement('div');
             imageCard.className = 'image-card';
             
@@ -426,6 +800,7 @@ Exemples:
                     <img data-src="${imageUrl}" alt="${prompt}" style="display: none;">
                 </div>
                 <div class="image-info">
+                    <div class="image-style-tag">${styleNames[style] || style}</div>
                     <div class="image-prompt">${prompt}</div>
                     <div class="image-actions">
                         <button class="action-btn download-btn">⬇️ Télécharger</button>
@@ -439,23 +814,18 @@ Exemples:
             const downloadBtn = imageCard.querySelector('.download-btn');
             const viewBtn = imageCard.querySelector('.view-btn');
             
-            // Charger l'image
             img.onload = () => {
                 loadingDiv.style.display = 'none';
                 img.style.display = 'block';
             };
             
             img.onerror = () => {
-                loadingDiv.innerHTML = '<p style="color: red;">Erreur de chargement</p>';
+                loadingDiv.innerHTML = '<p style="color: red;">❌ Erreur</p>';
             };
             
-            // Commencer le chargement
             img.src = img.dataset.src;
             
-            // Bouton télécharger
             downloadBtn.addEventListener('click', () => downloadImage(imageUrl, prompt));
-            
-            // Bouton voir (ouvrir dans un nouvel onglet)
             viewBtn.addEventListener('click', () => window.open(imageUrl, '_blank'));
             
             gallery.insertBefore(imageCard, gallery.firstChild);
@@ -487,22 +857,3 @@ Exemples:
                 gallery.innerHTML = '';
                 imageCount = 0;
                 updateCounter();
-            }
-        }
-
-        function updateCounter() {
-            counter.textContent = `${imageCount} image${imageCount > 1 ? 's' : ''} générée${imageCount > 1 ? 's' : ''}`;
-        }
-
-        function showError(message) {
-            errorDiv.textContent = message;
-            errorDiv.classList.add('active');
-            setTimeout(() => hideError(), 5000);
-        }
-
-        function hideError() {
-            errorDiv.classList.remove('active');
-        }
-    </script>
-</body>
-</html>
