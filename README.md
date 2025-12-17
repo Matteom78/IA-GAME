@@ -16,12 +16,6 @@
         .gradient-bg {
             background: linear-gradient(135deg, #1e293b 0%, #581c87 50%, #1e293b 100%);
         }
-        .gradient-text {
-            background: linear-gradient(90deg, #9333ea, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
         .message-enter {
             animation: slideIn 0.3s ease-out;
         }
@@ -146,7 +140,7 @@
         }
 
         function addMessage(role, content, isSearching = false) {
-            if (welcomeMessage) {
+            if (welcomeMessage && welcomeMessage.parentElement) {
                 welcomeMessage.remove();
             }
 
@@ -207,15 +201,20 @@
             sendButton.style.opacity = '0.5';
 
             addMessage('user', message);
-            conversationHistory.push({ role: 'user', content: message });
 
             const loadingIndicator = addLoadingIndicator();
 
             try {
+                // Construction des messages pour l'historique
+                const messages = conversationHistory.concat([
+                    { role: 'user', content: message }
+                ]);
+
                 const response = await fetch("https://api.anthropic.com/v1/messages", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        "anthropic-version": "2023-06-01"
                     },
                     body: JSON.stringify({
                         model: "claude-sonnet-4-20250514",
@@ -235,13 +234,17 @@ Quand utiliser la recherche web:
 - Pour découvrir les meilleures pratiques actuelles
 
 Réponds toujours en français de manière claire et professionnelle.`,
-                        messages: conversationHistory,
+                        messages: messages,
                         tools: [{
                             type: "web_search_20250305",
                             name: "web_search"
                         }]
                     })
                 });
+
+                if (!response.ok) {
+                    throw new Error(`Erreur API: ${response.status}`);
+                }
 
                 const data = await response.json();
                 
@@ -267,6 +270,7 @@ Réponds toujours en français de manière claire et professionnelle.`,
                             content: "Recherche effectuée avec succès."
                         }));
 
+                    conversationHistory.push({ role: 'user', content: message });
                     conversationHistory.push({ role: 'assistant', content: data.content });
                     conversationHistory.push({ role: 'user', content: toolResults });
 
@@ -274,6 +278,7 @@ Réponds toujours en français de manière claire et professionnelle.`,
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
+                            "anthropic-version": "2023-06-01"
                         },
                         body: JSON.stringify({
                             model: "claude-sonnet-4-20250514",
@@ -292,15 +297,17 @@ Réponds toujours en français de manière claire et professionnelle.`,
                     // Retirer le message de recherche
                     const searchMessages = messagesContainer.querySelectorAll('.bg-blue-500\\/20');
                     searchMessages.forEach(msg => msg.parentElement.remove());
+                } else {
+                    conversationHistory.push({ role: 'user', content: message });
+                    conversationHistory.push({ role: 'assistant', content: fullResponse });
                 }
 
                 loadingIndicator.remove();
-                conversationHistory.push({ role: 'assistant', content: fullResponse });
                 addMessage('assistant', fullResponse);
 
             } catch (error) {
                 loadingIndicator.remove();
-                addMessage('assistant', `❌ Erreur: ${error.message}`);
+                addMessage('assistant', `❌ Erreur: Cette application nécessite d'être exécutée dans claude.ai pour fonctionner correctement. L'API Anthropic requiert une authentification qui ne peut être gérée côté client pour des raisons de sécurité.\n\nPour utiliser cette fonctionnalité, vous devez :\n1. Utiliser cette application directement dans claude.ai (artifacts)\n2. Ou créer un backend serveur pour gérer l'authentification API`);
             } finally {
                 isLoading = false;
                 sendButton.disabled = false;
